@@ -1,7 +1,5 @@
 
 import streamlit as st
-import requests
-
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.embeddings import OpenAIEmbeddings
@@ -9,7 +7,6 @@ from langchain_community.vectorstores import FAISS
 from langchain_huggingface import ChatHuggingFace,HuggingFaceEndpoint, HuggingFaceEmbeddings
 import os
 from typing import List
-from fastapi import FastAPI
 from pydantic import BaseModel
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
@@ -69,7 +66,6 @@ full_rag_chain: RunnableSequence = (
     | StrOutputParser()
 )
 
-app = FastAPI()
 
 class Query(BaseModel):
     question: str
