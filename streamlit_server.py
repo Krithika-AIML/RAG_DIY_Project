@@ -13,7 +13,8 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnableSequence, RunnableLambda
 from dotenv import load_dotenv
 
-HF_TOKEN="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"
+os.getenv("HF_KEY")
+load_dotenv()
 
 PDF_PATH = "tech_support_faqs.pdf"
 CHUNK_SIZE = 200
