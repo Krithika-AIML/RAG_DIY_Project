@@ -7,3 +7,5 @@ uvicorn
 requests
 dotenv
 docker
+pypdf
+faiss-cpu
