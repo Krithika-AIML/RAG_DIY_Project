@@ -10,7 +10,7 @@ if st.button("Ask"):
     with st.spinner("Thinking..."):
         try:
             response = requests.post(
-                "http://localhost:8000/ask",
+                "https://rag-diy-project.onrender.com",
                 json={"question": question}
             )
             answer = response.json().get("answer", "No answer returned")
