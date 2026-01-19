@@ -13,8 +13,7 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnableSequence, RunnableLambda
 from dotenv import load_dotenv
 
-os.getenv("HF_KEY")
-load_dotenv()
+HF_TOKEN = st.secrets.get("HF_KEY")
 
 PDF_PATH = "tech_support_faqs.pdf"
 CHUNK_SIZE = 200
@@ -38,7 +37,16 @@ def build_vector_store(pdf_path: str) -> FAISS:
 vectordb = build_vector_store(PDF_PATH)
 retriever = vectordb.as_retriever(search_kwargs={"k": TOP_K})
 
-llm = ChatHuggingFace(llm=HuggingFaceEndpoint(repo_id="openai/gpt-oss-120b"))
+
+llm = ChatHuggingFace(
+    llm=HuggingFaceEndpoint(
+        repo_id="openai/gpt-oss-120b",   # see note below about this model
+        token=HF_TOKEN,
+        temperature=0.2,
+        max_new_tokens=512,
+        timeout=120,
+    )
+)
 
 prompt = ChatPromptTemplate.from_messages(
     [
@@ -75,8 +83,6 @@ class Query(BaseModel):
 st.title("IT Support AI Assistant")
 
 question = st.text_input("Enter your question:")
-
-
 
 
 if st.button("Ask"):
