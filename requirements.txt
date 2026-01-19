@@ -9,3 +9,5 @@ dotenv
 docker
 pypdf
 faiss-cpu
+sentence-transformers
+pip-system-certs
